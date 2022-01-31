@@ -4,8 +4,9 @@ The Reimplementation and Study of TiKV's Source Code.
 
 # Todo List
 
-- [ ] Part 1
-
+- [ ] Storage Engine: rust-rocksdb
+- [ ] Raft: raft-rs
+- [ ] gRPC: grpc-rs, futures-rs
 
 # Reference
 
