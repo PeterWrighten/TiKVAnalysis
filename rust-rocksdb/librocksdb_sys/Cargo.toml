@@ -1,0 +1,20 @@
+[package]
+name = "librocksdb_sys"
+version = "0.1.0"
+build = "build.rs"
+links = "rocksdb"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bzip2-sys = { version = "0.1.11+1.0.8", feature = ["static"] }
+libc = "0.2.11"
+libtitan_sys = { path = "libtitan_sys" }
+libz-sys = { version = "1.1", features = ["static"] }
+openssl-sys = { version = "0.9.54", optional = true, features = ["vendored"] }
+zstd-sys = "1.4.19+zstd.1.4.8"
+lz4-sys = "1.9"
+
+[dev-dependencies]
+tempfile = "3.1"
