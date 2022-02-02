@@ -24,6 +24,32 @@ pub struct CFHandle {
 
 impl CFHandle {
     pub fn id(&self) -> u32 {
-        
+        unsafe { crocksdb_ffi::crocksdb_column_family_handle_id(self.inner) }
+    }
+}
+
+impl Drop for CFHandle {
+    fn drop(&mut self) {
+        unsafe {
+            crocksdb_ffi::crocksdb_column_family_handle_destroy(self.inner);
+        }
+    }
+}
+
+fn ensure_default_cf_exists<'a>(
+    list: &mut Vec<ColumnFamilyDescriptor<'a>>,
+    ttls: &mut Vec<i32>,
+    is_titan: bool,
+) {
+    let contains = list.iter().any(|ref cf| cf.is_default());
+    if !contains {
+        let mut desc = ColumnFamilyDescriptor::default();
+        if is_titan {
+            desc.options.set_titandb_options(&TitanDBOptions::new());
+        }
+        list.push(desc);
+        if ttls.len() > 0 {
+            ttls.push(0);
+        }
     }
 }
